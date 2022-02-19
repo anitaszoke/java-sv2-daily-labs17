@@ -1,5 +1,6 @@
 package day1;
 
+import org.flywaydb.core.Flyway;
 import org.mariadb.jdbc.MariaDbDataSource;
 
 import java.sql.Connection;
@@ -37,8 +38,11 @@ public class Main {
             throw new IllegalStateException("Can not connect");
         }*/
 
+        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
+        flyway.migrate();
+
         ActorsRepository actorsRepository = new ActorsRepository(dataSource);
         actorsRepository.saveActor("Jack Doe");
-        System.out.println(actorsRepository.findActorWithPrefix("Jo"));
+        System.out.println(actorsRepository.findActorWithPrefix("J"));
     }
 }
