@@ -6,6 +6,8 @@ import org.mariadb.jdbc.MariaDbDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
 
@@ -42,7 +44,13 @@ public class Main {
         flyway.migrate();
 
         ActorsRepository actorsRepository = new ActorsRepository(dataSource);
-        actorsRepository.saveActor("Jack Doe");
-        System.out.println(actorsRepository.findActorWithPrefix("J"));
+/*        actorsRepository.saveActor("Jack Doe");
+        System.out.println(actorsRepository.findActorWithPrefix("J"));*/
+
+        MoviesRepository mr = new MoviesRepository(dataSource);
+//        mr.saveMovie("Titanic", LocalDate.of(1997,12,19));
+
+        List<Movie> movies = mr.findAllMovies();
+        System.out.println(movies);
     }
 }
